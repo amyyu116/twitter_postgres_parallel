@@ -111,7 +111,8 @@ def insert_tweet(connection,tweet):
             user_id_urls = None
         else:
             user_id_urls = get_id_urls(tweet['user']['url'], connection)
-
+        
+        
         # create/update the user
         sql = sqlalchemy.sql.text('''insert into users (
                 id_users,
@@ -164,7 +165,7 @@ def insert_tweet(connection,tweet):
         'name':remove_nulls(tweet['user']['name']),
         'location':remove_nulls(tweet['user']['location']),
         'description':remove_nulls(tweet['user']['description']),
-        'withheld_in_countries':remove_nulls(tweet.get('withheld_in_countries', None))
+        'withheld_in_countries':tweet.get('withheld_in_countries', None)
         })
         ########################################
         # insert into the tweets table
@@ -282,7 +283,7 @@ def insert_tweet(connection,tweet):
             'favorite_count':tweet["favorite_count"],
             'quote_count':tweet["quote_count"],
             'withheld_copyright':tweet.get("withheld_copyright", None),
-            'withheld_in_countries':remove_nulls(tweet.get('withheld_in_countries', None)),
+            'withheld_in_countries':tweet.get('withheld_in_countries', None),
             'source':tweet["source"],
             'text':remove_nulls(text),
             'country_code':country_code,
