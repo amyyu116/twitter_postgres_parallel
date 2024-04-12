@@ -187,17 +187,17 @@ def _insert_tweets(connection,input_tweets):
             'id_users':tweet['user']['id'],
             'created_at':tweet['user']['created_at'],
             'updated_at':tweet['created_at'],
-            'screen_name':remove_nulls(tweet['user']['screen_name']),
-            'name':remove_nulls(tweet['user']['name']),
-            'location':remove_nulls(tweet['user']['location']),
-            'url':user_url,
-            'description':remove_nulls(tweet['user']['description']),
-            'protected':tweet['user']['protected'],
-            'verified':tweet['user']['verified'],
+            'url':remove_nulls(user_url),
             'friends_count':tweet['user']['friends_count'],
             'listed_count':tweet['user']['listed_count'],
             'favourites_count':tweet['user']['favourites_count'],
             'statuses_count':tweet['user']['statuses_count'],
+            'protected':tweet['user']['protected'],
+            'verified':tweet['user']['verified'],
+            'screen_name':remove_nulls(tweet['user']['screen_name']),
+            'name':remove_nulls(tweet['user']['name']),
+            'location':remove_nulls(tweet['user']['location']),
+            'description':remove_nulls(tweet['user']['description']),
             'withheld_in_countries':tweet['user'].get('withheld_in_countries',None),
             })
 
@@ -404,7 +404,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--db',required=True)
     parser.add_argument('--inputs',nargs='+',required=True)
-    parser.add_argument('--batch_size',type=int,default=1)
+    parser.add_argument('--batch_size',type=int,default=1000)
     args = parser.parse_args()
 
     # create database connection
